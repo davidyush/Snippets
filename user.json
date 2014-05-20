@@ -1,0 +1,20 @@
+{
+	"snippets": {
+		"html": {
+			"abbreviations": {
+			"jq": "<script src=\"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js\"></script>",
+			"ng": "<script src=\"http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular.min.js\"></script>",
+			"ngRoute": "<script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular-route.min.js\"></script>",
+			"tb3": "<link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css\"></link>",
+			"tbjs": "<script src=\"http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>",
+			"tbda": "<link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootswatch/3.1.1/darkly/bootstrap.min.css\"></link>",
+			"tbam": "<link rel=\"stylesheet\" href=\"http://bootswatch.com/amelia/bootstrap.min.css\"></link>",
+			"norm": "<link rel=\"stylesheet\" href=\"http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css\"></link>",
+			"select": "<script src=\"http://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr.js\"></script>"
+			},
+			"snippets":{
+			"twitter": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t<title>Bootstrap 101 Template</title>\n\t<link rel=\"stylesheet\" href=\"http://netdna.bootstrapcdn.com/bootswatch/3.1.1/darkly/bootstrap.min.css\"></link>\n\t<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->\n\t<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->\n\t<!--[if lt IE 9]>\n\t\t<script src=\"https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js\"></script>\n\t\t<script src=\"https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js\"></script>\n\t<![endif]-->\n</head>\n<body>\n\t<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\"></script>\n\t<script src=\"js/bootstrap.min.js\"></script>\n</body>\n</html>\n"
+			}
+		}
+	}
+}

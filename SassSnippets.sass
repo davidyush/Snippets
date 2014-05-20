@@ -1,0 +1,125 @@
+/*if*/
+
+$width: 780px;
+
+.modele {
+	background: if($width> 500px, orange,red);
+}
+
+/* @if directive - если несколько стилей в условии*/
+
+@mixin modele($width) {
+
+	@debag "width = #{$width}"; //это будет в консоле
+	//@warn "width = #{$width}"; так же будет в консоле с WARNING и будет показано откуда взялась ошибка
+	@if $width >= 480px and $width < 758px {
+		@media (min-width: 480px){
+			width:50%;
+		}
+	}@else if $width >= 768px {
+		@media (min-width: 768px) {
+			width: 33%;
+		}
+	}@else{
+		width:100%;
+	}
+}
+
+.modele{
+	@include module(580px);
+}
+
+//@for loop---------------------------------------------
+
+$list: 10px,20px,30px,40px;
+
+//to - невключая
+//trought - включая
+.module-2{
+	@for $i from 1 to length($list){
+		&:nth-child(#{$i}) {
+			padding: nth($list, $i);
+		}
+	}
+}
+
+//@each loop
+
+$colors: orange,red, hotpink , seagreen;
+
+.btn {
+	min-width: 120px;
+	@each $color in $colors {
+		$-#{$color} {
+			background: $color;
+		}
+	}
+}
+
+
+//array
+$colors-2 : (
+	"red": #f10,
+	"yellow": #ff1,
+	"blue": #12f
+);
+
+.btn-2 {
+	@each $name, $color in $colors-2 {
+		$-#{$colros} {
+			background: $color;
+		}
+	}
+}
+
+//while loop
+
+$i: 3;
+@while $i > 0 {
+	.module:nth-child(#{$i}) {
+		countdown: $i;
+	}
+	$i: $i -1 !global;
+}
+
+.module:nth-child(0) {
+	countdown: "BOOM!!!";
+}
+
+//@function для одного значения, в отличии от mixin
+
+$grid-width: 4em;
+$gutter-width: $grid-width/4;
+
+@function grid-width($n) {
+	@return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+
+#primary {
+	width: grid-width(7);
+}
+#secondary {
+	width: grid-width(5);
+}
+
+// map and each
+$animals-map : (
+  (puma,black,default),
+  (sea-slug,blue,pointer),
+  (egret,green,move)
+);
+
+@each $animal,$color,$cursor in $animals-map {
+  .#{$animal} {
+    background: url("img/#{animal}.png");
+    border: 2px solid $color;
+    cursor: $cursor;
+  }
+}
+
+
+
+
+
+
+
