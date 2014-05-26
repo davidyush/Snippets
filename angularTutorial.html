@@ -1,0 +1,246 @@
+angularJS Tutorial
+------------------------
+lesson#1
+
+<body ng=ng-controller="StoreController">
+</body>
+function StoreController() {
+	alert("Hello from app.js");
+}
+
+To define the app. In app.js
+
+var app = angular.module('store', []);
+now 'store' is application name, [] - dependencies(?)
+
+<html lang="en" ng-app="store">
+or in another place like body or some div.
+
+simple controller with some var object
+
+app.controller("StoreController", function(){
+	this.product = gem;
+});
+
+var gem = {
+	name: "Dodecahedron",
+	price: 2.95,
+	description: "some beautiful stone",
+	canPurchase: true,
+	soldOut: false
+}
+
+controller should be inside the app
+ok. now we have to display it
+<div class="row" ng-controller="StoreController as store"> <!-- name of controller and his alias -->
+  <div class="col-md-6 col-md-offset-3" ng-hide="store.product.soldOut"> <!-- it's boolean var, if true - hide,not -show -->
+    <h1>{{store.product.name}}</h1>
+    <h1>${{store.product.price}}</h1>
+    <h1>{{store.product.description}}</h1>
+    <button class="btn btn-info" ng-show="store.product.canPurchase">Add to Cart</button> <!-- also boolean, if true - show -->
+  </div>
+</div>
+
+in {{}} we can write some expression ,like {{ 10 + 20}} or {{"Hello," + " Alice"}}
+
+It's simple. Rejoice!
+
+Ok. now time work with array of objects
+Our controller and array:
+app.controller("StoreController", function(){
+	this.products = gems;
+});
+
+var gems =  [ {
+  	name: "Dodecahedron",
+  	price: 2.95,
+  	description: "some beautiful stone",
+    canPurchase: true,
+		soldOut: true
+  },
+  {
+    name: "Pentagonal Gem",
+    price: 5.95,
+    description: "another beautiful stone",
+    canPurchase: true,
+    soldOut: false
+  },
+  {
+    name: "Suffers",
+    price: "free",
+    description: "All you need is suffers",
+    canPurchase: true,
+    soldOut: false
+  }
+];
+
+To displa ot simple, ng-repeat="(key, value) in dataset"
+<div class="row" ng-controller="StoreController as store">
+  <div class="col-md-6 col-md-offset-3" ng-repeat="product in store.products">
+    <div ng-hide="product.soldOut">
+    	<h1>{{product.name}}</h1>
+    	<h1>${{product.price.toFixed(2)}}</h1>
+    	<h1>{{product.description}}</h1>
+    	<button class="btn btn-success btn-lg" ng-show="product.canPurchase">Add To Cart</button>
+    </div>
+ </div>
+</div>
+
+<!-- end of lesson #1 -->
+--------------------------------------------
+Lesson#2
+
+ng-app, ng-show etc. - it called directives
+
+Filters
+
+<p>{{0 | currency}}</p> <!-- $0.00 -->
+| pipe - it means - send the output into
+<p class="well">{{'123467864' | date:'MM/dd/yyyy @ h:mma'}}</p> <!-- 01/02/1970 @1:17PM -->
+<p class="well">{{'octagon gem ' | uppercase }}</p> <!-- OCTOGON GEM -->
+<p class="well">{{'Summertime Sadness' | limitTo:8}}</p> <!-- Summerti -->
+
+we can also do it in directives
+<li ng-repeat="product in store.products | orderBy:'-price'"></li>
+<li ng-repeat="product in store.products | linitTo:3"></li>
+and that's cool
+
+ok. now in our array of stones, each objecet has an array of images
+var gems = [
+{
+	name: "Dodecahedron Gem",
+	price: 2.95,
+	description: '....',
+	images: [
+		{
+			full: 'dodecahedron-01-full.jpg',
+			thumb: 'dodecahedron-01-thumb.jpg'
+		},
+		{
+			full: 'dodecahedron-02-full.jpg',
+			thumb: 'dodecahedron-02-thumb.jpg'
+		}
+	];
+}...
+];
+
+and we want to display it using ng-src
+<div ng-repeat="product in store.products">
+	<img ng-src="{{product.images[0].full}}">
+</div>
+
+now we have array of gems, really big array.
+  var gems = [{
+    name: 'Azurite',
+    description: "Some gems have hidden qualities beyond their luster, beyond their shine... Azurite is one of those gems.",
+    shine: 8,
+    price: 110.50,
+    rarity: 7,
+    color: '#CCC',
+    faces: 14,
+    images: [
+      "images/gem-02.gif",
+      "images/gem-05.gif",
+      "images/gem-09.gif"
+    ]
+  }, {
+    name: 'Bloodstone',
+    description: "Origin of the Bloodstone is unknown, hence its low value. It has a very high shine and 12 sides, however.",
+    shine: 9,
+    price: 22.90,
+    rarity: 6,
+    color: '#EEE',
+    faces: 12,
+    images: [
+      "images/gem-01.gif",
+      "images/gem-03.gif",
+      "images/gem-04.gif"
+    ]
+  }, {
+    name: 'Zircon',
+    description: "Zircon is our most coveted and sought after gem. You will pay much to be the proud owner of this gorgeous and high shine gem.",
+    shine: 70,
+    price: 1100,
+    rarity: 2,
+    color: '#000',
+    faces: 6,
+    images: [
+      "images/gem-06.gif",
+      "images/gem-07.gif",
+      "images/gem-10.gif"
+    ]
+  }];
+})();
+and we want to display every gem with name, price and images
+easy-peasy
+<div class="list-group-item" ng-repeat="product in store.products">
+  <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
+  <!-- Image Gallery  -->
+  <div class="gallery">
+    <div class="img-wrap">
+      <img ng-src="{{product.images[0]}}" />
+    </div>
+    <ul class="img-thumbnails clearfix">
+      <li class="small-image pull-left thumbnail" ng-repeat="image in product.images">
+        <img ng-src="{{image}}" />
+      </li>
+    </ul>
+  </div>
+</div>
+
+now we have to do tabs
+for start we have to write a new controller.
+app.controller("TabController", function() {
+  	this.tab = 1;
+    this.setTab = function(newValue) {
+    	this.tab = newValue;
+    };
+    this.isTab = function(tabName) {
+    	return this.tab === tabName;
+    };
+  });
+
+<section class="tab" ng-controller="TabController as tab">
+  <ul class="nav nav-pills">
+    <li ng-class="{ active: tab.isSet(1)}">
+      <a href ng-click="tab.setTab(1)">Description</a></li>
+    <li ng-class="{ active: tab.isSet(2)}">
+      <a href ng-click="tab.setTab(2)">Specs</a></li>
+    <li ng-class="{ active: tab.isSet(3)}">
+      <a href ng-click="tab.setTab(3)">Reviews</a></li>
+    </ul>
+  <div ng-show="tab.isSet(1)">
+     <h4>Description</h4>
+      <blockquote>{{product.description}}</blockquote>
+  </div>
+    <div ng-show="tab.isSet(2)">
+    <h4>Specs</h4>
+    <blockquote>Shine: {{product.shine}}</blockquote>
+  </div>
+  <div ng-show="tab.isSet(3)">
+    <h4>Reviews</h4>
+    <blockquote></blockquote>
+  </div>
+</section>
+
+OK.it's not so hard.yes?
+now we are going to make image gallery.
+at first we have to define our controller:
+app.controller("GalleryController", function() {
+  this.current = 0;
+  this.setCurrent = function(current) {
+  	this.current = current || 0;
+  };
+});
+
+<div class='gallery' ng-show="product.images.length" ng-controller="GalleryController as gallery">
+  <img ng-src="{{product.images[gallery.current]}}" />
+  <ul class="list-inline thumbs">
+    <li class="thumbnail" ng-repeat="image in product.images">
+      <img ng-src="{{image}}" />
+    </li>
+  </ul>
+</div>
+
+
+-----------------------------------------------------------------
